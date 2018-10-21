@@ -17,7 +17,7 @@ layout_main.xmlなどにxmlを一行追加するだけでカメラを開くこ�
 
 今はまだカメラを開くだけですが、インスタグラムに写真を投稿するときのようなフィルタをかけられたり、takePicture関数だけで写真を撮れようにしようと思っています。
 
-## filterを指定する時
+## フィルターを指定する時
 	//青っぽいfilterを設定する
 	mFilterCameraView.fitelr = FilterCameraView.water
 	//filterを外す
