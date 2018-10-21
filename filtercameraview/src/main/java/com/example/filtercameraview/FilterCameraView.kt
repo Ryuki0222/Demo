@@ -1,11 +1,10 @@
-package com.example.ryukisakuma.demo
+package com.example.filtercameraview
 
 import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.ImageFormat
-import android.graphics.SurfaceTexture
+import android.graphics.*
 import android.hardware.camera2.*
 import android.media.ImageReader
 import android.os.Build
@@ -18,6 +17,11 @@ import android.util.AttributeSet
 import android.util.Size
 import android.view.Surface
 import android.view.TextureView
+import jp.co.cyberagent.android.gpuimage.GPUImage
+import jp.co.cyberagent.android.gpuimage.GPUImageGaussianBlurFilter
+import jp.co.cyberagent.android.gpuimage.GPUImageNormalBlendFilter
+import java.io.File
+import java.io.FileOutputStream
 import java.util.*
 
 class FilterCameraView : TextureView {
@@ -69,9 +73,13 @@ class FilterCameraView : TextureView {
                 setMeasuredDimension(width, width * ratioWidth / ratioHeight)
             }
         }
+
+
         //カメラを起動させていく
         this.surfaceTextureListener = surfaceFiiterCameraViewListener
         startBackgroundThread()
+        //val gpuImage = GPUImage((this as Activity).baseContext)
+
     }
 
     val surfaceFiiterCameraViewListener = object : TextureView.SurfaceTextureListener {
@@ -81,6 +89,11 @@ class FilterCameraView : TextureView {
         }
 
         override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {
+
+            //captureSession!!.stopRepeating()
+            //
+            // this_bitmap = (this as TextureView).bitmap
+            //captureSession!!.setRepeatingRequest(previewRequest, null, null)
 
         }
 
@@ -195,6 +208,19 @@ class FilterCameraView : TextureView {
         backgroundThread = HandlerThread("CameraBackground").also { it.start() }
         backgroundHandler = Handler(backgroundThread!!.looper)
     }
+    //写真を撮る関数
+    fun takePicture () {
+        captureSession!!.stopRepeating()
+        var mFile : File? = null
+        var this_bitmap : Bitmap? = null
+        if((this as TextureView).isAvailable) {
+            mFile = File(baseActivity.getExternalFilesDir(null), "sample.png")
+            val fos= FileOutputStream(mFile)
+            this_bitmap = (this as TextureView).bitmap
+            this_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos.close()
+        }
 
-
+        //captureSession!!.setRepeatingRequest(previewRequest, null, null)
+    }
 }

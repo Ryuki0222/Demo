@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(),ActivityCompat.OnRequestPermissionsResultCallback {
-
+    /*
     private var captureSession: CameraCaptureSession? = null
     private var cameraDevice: CameraDevice? = null
     private var previewSize: Size = Size(1000, 1000)
@@ -42,17 +42,23 @@ class MainActivity : AppCompatActivity(),ActivityCompat.OnRequestPermissionsResu
     private var backgroundHandler: Handler? = null
     private lateinit var baseBitmap : Bitmap
     private  var filteredgpuImage : GPUImage? = null
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Toast.makeText(this, android.R.string.ok.toString(), Toast.LENGTH_SHORT).show()
-
+        /*
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         _textureView.surfaceTextureListener = surfaceTextureListener
         startBackgroundThread()
+        val filterCameraView = FilterCameraView(this)
+        */
 
     }
 
+    fun click (view :View) {
+        //cfv.takePicture()
+    }
+    /*
     fun openCamera() {
         //マネージャーの取得
         val manager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
@@ -205,5 +211,5 @@ class MainActivity : AppCompatActivity(),ActivityCompat.OnRequestPermissionsResu
         val fitered = gpuImage.bitmapWithFilterApplied //Bitmap
 
 
-    }
+    }*/
 }
