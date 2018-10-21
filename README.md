@@ -12,4 +12,7 @@ AndroidManifest.xmlのmanifestタグ内に以下を追加してください
     	<uses-permission android:name="android.permission.CAMERA"/>
 
 
-	
+# Usage
+layout_main.xmlなどにxmlを一行追加するだけでカメラを開くことができます。
+
+今はまだカメラを開くだけですが、インスタグラムに写真を投稿するときのようなフィルタをかけられたり、takePicture関数だけで写真を撮れようにしようと思っています。
