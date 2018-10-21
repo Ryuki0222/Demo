@@ -1,6 +1,7 @@
 package com.example.ryukisakuma.demo
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -45,9 +46,11 @@ class MainActivity : AppCompatActivity(),ActivityCompat.OnRequestPermissionsResu
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /*
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         _textureView.surfaceTextureListener = surfaceTextureListener
         startBackgroundThread()
+        */
     }
 
     fun openCamera() {
@@ -162,7 +165,7 @@ class MainActivity : AppCompatActivity(),ActivityCompat.OnRequestPermissionsResu
         }
 
         override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
-            Toast.makeText(this@MainActivity, "changed", Toast.LENGTH_SHORT).show()
+
         }
         //フレームごとにアップデートする
         //ここにフィルターを記述
@@ -176,35 +179,7 @@ class MainActivity : AppCompatActivity(),ActivityCompat.OnRequestPermissionsResu
     }
 
     fun _textureView_onClick(view : View) {
-        //Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
-        /*
-       val resource = resources
-       //ベースの画像
-       val bitmap = BitmapFactory.decodeResource(resource, R.drawable.image)
-       baseimageview_.setImageBitmap(bitmap)
 
-       val filter_gaussian = GPUImageGaussianBlurFilter()
-       val filter_blend = GPUImageNormalBlendFilter()
-
-       val b1 = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-       val canvas = Canvas(b1)
-       val p = Paint()
-       p.color = 0x30AFAFAF
-       canvas.drawRect(0f, 0f, 1f, 1f, p)
-       filter_blend.bitmap = b1
-       val gpuImage = GPUImage(this)
-       gpuImage.setImage(bitmap)
-       gpuImage.setFilter(filter_blend)
-       gpuImage.setImage(gpuImage.bitmapWithFilterApplied)
-       gpuImage.setFilter(filter_gaussian)
-       filter_gaussian.setBlurSize(50f)
-       gpuImage.setImage(gpuImage.bitmapWithFilterApplied)
-       filter_gaussian.setBlurSize(5f)
-       gpuImage.setImage(gpuImage.bitmapWithFilterApplied)
-       filter_gaussian.setBlurSize(1f)
-       val fitered = gpuImage.bitmapWithFilterApplied
-       imageview_.setImageBitmap(fitered)
-*/
         val bitmap = baseBitmap
 
         val filter_blend = GPUImageNormalBlendFilter()
