@@ -8,29 +8,6 @@
         tools:context=".MainActivity"
         android:orientation="vertical"
 >
-<!--
-    <ImageView android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/baseimageview_"
-               android:layout_weight="1"
-    />
-    <ImageView android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/imageview_"
-               android:layout_weight="1"
-    />
-
-    <TextureView android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:id="@+id/_textureView"
-                 android:onClick="_textureView_onClick"
-                 android:layout_weight="0"
-    />
-        -->
     <com.example.filtercameraview.FilterCameraView android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:id="@+id/cfv"
-                                                   android:onClick="click"
-
-    />
+                                                   android:layout_height="match_parent"/>
 </LinearLayout>
