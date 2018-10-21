@@ -45,12 +45,12 @@ class MainActivity : AppCompatActivity(),ActivityCompat.OnRequestPermissionsResu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Toast.makeText(this, android.R.string.ok.toString(), Toast.LENGTH_SHORT).show()
 
-        /*
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         _textureView.surfaceTextureListener = surfaceTextureListener
         startBackgroundThread()
-        */
+
     }
 
     fun openCamera() {

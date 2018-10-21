@@ -71,6 +71,7 @@ class FilterCameraView : TextureView {
         }
         //カメラを起動させていく
         this.surfaceTextureListener = surfaceFiiterCameraViewListener
+        startBackgroundThread()
     }
 
     val surfaceFiiterCameraViewListener = object : TextureView.SurfaceTextureListener {
@@ -89,29 +90,6 @@ class FilterCameraView : TextureView {
 
         override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
             return false
-        }
-    }
-
-    fun openCamera () {
-        //get manager
-        val manager = this.context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        try {
-            val cameraId = manager.cameraIdList[0]
-            //get most graphics of camera
-            val cameraCharacteristics = manager.getCameraCharacteristics(cameraId)
-            val streamConfigurationMap = cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-            previewSize = streamConfigurationMap!!.getOutputSizes(SurfaceTexture::class.java)[0]
-
-            val permission = ContextCompat.checkSelfPermission(this.context, Manifest.permission.CAMERA)
-
-            if (permission != PackageManager.PERMISSION_GRANTED) {
-                requestCameraPermission()
-                return
-            }
-            manager.openCamera(cameraId, stateCallback, null)
-        }
-        catch (e: CameraAccessException) {
-            e.printStackTrace()
         }
     }
 
@@ -172,11 +150,51 @@ class FilterCameraView : TextureView {
             e.printStackTrace()
         }
     }
+
+    fun openCamera () {
+        //get manager
+        val manager = this.context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        try {
+            val cameraId = manager.cameraIdList[0]
+            //get most graphics of camera
+            val cameraCharacteristics = manager.getCameraCharacteristics(cameraId)
+            val streamConfigurationMap = cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
+            previewSize = streamConfigurationMap!!.getOutputSizes(SurfaceTexture::class.java)[0]
+
+            val permission = ContextCompat.checkSelfPermission(this.context, Manifest.permission.CAMERA)
+
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                requestCameraPermission()
+                return
+            }
+            manager.openCamera(cameraId, stateCallback, null)
+        }
+        catch (e: CameraAccessException) {
+            e.printStackTrace()
+        }
+    }
+
     fun requestCameraPermission () {
         if(this.baseActivity.shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
             AlertDialog.Builder(this.baseActivity.baseContext)
                 .setMessage("Permissoin Here")
-                .setPositiveButton("OK")
+                .setPositiveButton(android.R.string.ok) {_, _ ->
+                    this.baseActivity.requestPermissions(arrayOf(Manifest.permission.CAMERA),200)
+                }
+                .setNegativeButton(android.R.string.cancel) {_, _ ->
+                    this.baseActivity.finish()
+                }
+                .create()
+        }
+        else {
+            this.baseActivity.requestPermissions(arrayOf(Manifest.permission.CAMERA), 200)
         }
     }
+
+    private fun startBackgroundThread () {
+        backgroundThread = HandlerThread("CameraBackground").also { it.start() }
+        backgroundHandler = Handler(backgroundThread!!.looper)
+    }
+
+
 }
